@@ -1,0 +1,7 @@
+sales_profile:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: /opt/airflow/dbt/data/sales.duckdb
+      threads: 1
