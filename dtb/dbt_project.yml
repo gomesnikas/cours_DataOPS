@@ -1,1 +1,10 @@
+name: sales_dbt_project
+version: 1.0
+config-version: 2
+
+profile: sales_profile
+
+model-paths: ["models"]
+target-path: "target"
+clean-targets: ["target", "dbt_modules"]
 
