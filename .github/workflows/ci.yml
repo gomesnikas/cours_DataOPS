@@ -1,1 +1,29 @@
+name: CI Pipeline
+
+on: [push, pull_request]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install dbt-core great_expectations
+
+      - name: Run dbt
+        run: |
+          cd dbt && dbt run
+
+      - name: Run Great Expectations
+        run: |
+          great_expectations checkpoint run sales_data_checkpoint
 
