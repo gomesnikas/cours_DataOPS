@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: sales
+    tables:
+      - name: sales
+
+models:
+  - name: stg_sales
+    description: "Données nettoyées"
+  - name: fct_daily_revenue
+    description: "Revenus journaliers agrégés"

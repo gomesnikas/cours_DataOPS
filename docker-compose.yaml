@@ -16,7 +16,8 @@ services:
       retries: 5
 
   airflow-init:
-    image: apache/airflow:2.5.0
+    build: .
+    image: custom-airflow-dbt
     container_name: epsi_dataops-airflow-init-1
     # Add proper command to wait for postgres and initialize the database
     command: >
@@ -45,7 +46,8 @@ services:
     restart: on-failure
 
   airflow-webserver:
-    image: apache/airflow:2.5.0
+    build: .
+    image: custom-airflow-dbt
     container_name: epsi_dataops-airflow-webserver-1
     # Add command to start the webserver
     command: webserver
@@ -73,7 +75,8 @@ services:
       retries: 5
 
   airflow-scheduler:
-    image: apache/airflow:2.5.0
+    build: .
+    image: custom-airflow-dbt
     container_name: epsi_dataops-airflow-scheduler-1
     # Add command to start the scheduler
     command: scheduler
@@ -91,6 +94,29 @@ services:
       - airflow-init
       - airflow-webserver
     restart: always
+
+  dbt:
+    image: ghcr.io/dbt-labs/dbt-postgres:1.6.0
+    container_name: epsi_dataops-dbt
+    volumes:
+      - ./dbt:/usr/app
+    working_dir: /usr/app
+    depends_on:
+      - postgres
+    networks:
+      - epsi_dataops_network
+    entrypoint: ["tail", "-f", "/dev/null"]
+
+  great_expectations:
+    image: python:3.10
+    container_name: epsi_dataops-greatexp
+    volumes:
+      - ./great_expectations:/app/great_expectations
+      - ./data:/app/data
+    working_dir: /app
+    networks:
+      - epsi_dataops_network
+    command: tail -f /dev/null
 
 volumes:
   postgres-db-volume:

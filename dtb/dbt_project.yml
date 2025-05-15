@@ -1,5 +1,5 @@
-name: sales_dbt_project
-version: 1.0
+name: sales_pipeline
+version: '1.0'
 config-version: 2
 
 profile: sales_profile

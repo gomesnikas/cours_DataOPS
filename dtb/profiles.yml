@@ -2,6 +2,10 @@ sales_profile:
   target: dev
   outputs:
     dev:
-      type: duckdb
-      path: /opt/airflow/dbt/data/sales.duckdb
-      threads: 1
+      type: postgres
+      host: postgres
+      user: airflow
+      password: airflow
+      dbname: airflow_db
+      schema: public
+      port: 5432
