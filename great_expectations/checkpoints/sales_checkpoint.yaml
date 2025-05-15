@@ -1,0 +1,11 @@
+name: sales_checkpoint
+config_version: 1.0
+class_name: Checkpoint
+run_name_template: "%Y-%m-%d-%H-%M-%S-sales-validation"
+expectation_suite_name: sales_data_expectations
+batch_request:
+  datasource_name: sales_datasource
+  data_connector_name: default_inferred_data_connector_name
+  data_asset_name: sales
+  data_connector_query:
+    index: -1
